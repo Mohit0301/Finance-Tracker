@@ -34,8 +34,9 @@ const User = sequelize.define("User", {
         allowNull: false
     },
     registrationDate: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW
+        type: DataTypes.DATEONLY,
+        defaultValue: DataTypes.NOW,
+        allowNull: false
     }
 });
 
