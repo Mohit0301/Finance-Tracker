@@ -9,7 +9,7 @@ require("express-async-errors");
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
-app.use("/api/v1", errorHandlerMiddleware);
+app.use(errorHandlerMiddleware);
 app.use(notFoundMiddleware);
 
 async function start() {
