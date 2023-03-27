@@ -19,7 +19,7 @@ async function register(req, res) {
 
     const user = await UserModel.create(newUser);
 
-    res.status(StatusCodes.CREATED).json({success: true, user});
+    res.status(StatusCodes.CREATED).json({success: true});
 }
 
 async function createUserObject(firstName, lastName, email, password) {
