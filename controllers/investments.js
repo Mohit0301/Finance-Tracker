@@ -35,7 +35,29 @@ async function getInvestment(req, res) {
 }
 
 async function createInvestment(req, res) {
-    res.send("TODO: createInvestment");
+    const userId = req.user.userId;
+
+    const {category, institute, amount, investmentDate} = req.body;
+
+    if(!category || !institute || !amount) {
+        throw new BadRequestError("Category, institute, and amount must be provided");
+    }
+
+    //values to be inserted in the Investments table
+    const values = {
+        userId: userId,
+        category: category,
+        institute: institute,
+        amount: amount
+    }
+
+    if(investmentDate) {
+        values.investmentDate = investmentDate;
+    }
+
+    const investment = await Investment.create(values);
+
+    res.status(StatusCodes.CREATED).json({success: true, investment});
 }
 
 async function updateInvestment(req, res) {
