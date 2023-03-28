@@ -61,7 +61,28 @@ async function createInvestment(req, res) {
 }
 
 async function updateInvestment(req, res) {
-    res.send("TODO: updateInvestment");
+    const userId = req.user.userId;
+    const investmentId = req.params.id;
+
+    const {amount, investmentDate} = req.body;
+
+    const values = {};
+
+    if(amount) {
+        values.amount = amount
+    }
+    if(investmentDate) {
+        values.investmentDate = investmentDate
+    }
+
+    const updatedInvestment = await Investment.update(values, {
+        where: {
+            userId: userId,
+            id: investmentId
+        },
+    });
+
+    res.status(StatusCodes.OK).json({hits: updatedInvestment[0]});
 }
 
 async function deleteInvestment(req, res) {
