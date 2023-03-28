@@ -1,6 +1,15 @@
+const User = require("../models/user-model");
+const Investment = require("../models/investment-model");
+const {StatusCodes} = require("http-status-codes");
 
 async function getAllInvestments(req, res) {
-    res.send("TODO: getAllInvestments");
+    const userId = req.user.userId;
+
+    const investments = await Investment.findAll({where: {
+       userId: userId 
+    }});
+
+    res.status(StatusCodes.OK).json({success: true, investments: investments, hits: investments.length});
 }
 
 async function getInvestment(req, res) {
