@@ -86,7 +86,21 @@ async function updateInvestment(req, res) {
 }
 
 async function deleteInvestment(req, res) {
-    res.send("TODO: deleteInvestment");
+    const userId = req.user.userId;
+    const investmentId = req.params.id;
+
+    const deletedInvestment = await Investment.destroy({
+        where: {
+            userId: userId,
+            id: investmentId
+        }
+    });
+
+    if(deletedInvestment === 0) {
+        throw new NotFoundError("Investment not found");
+    }
+
+    res.status(StatusCodes.OK).json({hits: deletedInvestment});
 }
 
 module.exports = {
